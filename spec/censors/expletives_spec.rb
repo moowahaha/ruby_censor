@@ -1,12 +1,6 @@
-describe Censor::MyName do
+describe Censor::Expletives do
 
-  %w{bloody fuck shit}.each do |word|
-
-    it "should censor the '#{word}'" do
-      censor = Censor::Expletives.new
-      censor.replace("blah blah '#{word}' de blah").should == "blah blah '#{'*' * word.length}' de blah"
-    end
-
-  end
+  it_should_behave_like :a_censor_for_expletives
+  it_should_behave_like :a_censor_for_adjectival_expletives
 
 end

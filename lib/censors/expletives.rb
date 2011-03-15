@@ -4,6 +4,7 @@ class Censor
   class Expletives < Censor
     
     include CensoredWords::Expletives
+    include CensoredWords::AdjectivalExpletives
 
   end
 end
