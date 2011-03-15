@@ -1,7 +1,7 @@
 class Censor
-  class MyName
-    def replace text
-      text.gsub(/hardisty/i, '********')
+  class MyName < Censor
+    def censored_words
+      %w{hardisty}
     end
   end
 end
