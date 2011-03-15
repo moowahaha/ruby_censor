@@ -1,7 +1,7 @@
+require File.join(File.dirname(__FILE__), %w{.. censor})
+
 class Censor
   class MyName < Censor
-    def censored_words
-      %w{hardisty}
-    end
+    Censor.add 'hardisty'
   end
 end
