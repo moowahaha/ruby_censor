@@ -20,12 +20,28 @@ describe Censor do
       @censor.replace('leap').should == '****'
     end
 
-    it "should censor plurals when appropriate" do
-      @censor.replace('leaps').should == '*****'
+    describe "plurals" do
+
+      it "should be replaced when appropriate" do
+        @censor.replace('leaps').should == '*****'
+      end
+
+      it "(possessive) should be replaced when appropriate" do
+        @censor.replace("leap's").should == "****'s"
+      end
+
     end
 
-    it "should replace adjectives when appropriate" do
-      @censor.replace('leaping').should == '*******'
+    describe "adjectives" do
+
+      it "should be replaced when appropriate" do
+        @censor.replace('leaping').should == '*******'
+      end
+
+      it "(lazy) should be replaced when appropriate" do
+        @censor.replace('leapin').should == '******'
+      end
+
     end
 
   end
@@ -40,8 +56,16 @@ describe Censor do
       @censor.replace('leap').should == 'l**p'
     end
 
-    it "should replace a plural" do
-      @censor.replace('leaps').should == 'l***s'
+    describe "plurals" do
+
+      it "should be replaced when appropriate" do
+        @censor.replace('leaps').should == 'l***s'
+      end
+
+      it "(possessive) should be replaced when appropriate" do
+        @censor.replace("leap's").should == "l**p's"
+      end
+
     end
 
     it "should replace an adjective" do
