@@ -3,6 +3,7 @@ describe Censor do
   class Test < Censor
 
     Censor.add 'leap', :adjective => true, :plural => true
+    Censor.add 'sit', :adjective => true
 
   end
 
@@ -40,6 +41,14 @@ describe Censor do
 
       it "(lazy) should be replaced when appropriate" do
         @censor.replace('leapin').should == '******'
+      end
+
+      it "should match single T suffix" do
+        @censor.replace('siting').should == '******'
+      end
+
+      it "should match double T suffix" do
+        @censor.replace('sitting').should == '*******'
       end
 
     end

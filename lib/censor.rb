@@ -5,7 +5,7 @@ class Censor
     @@censored_words ||= []
 
     [words].flatten.each do |word|
-      safe_word = Regexp.escape(word)
+      safe_word = Regexp.escape(word.downcase)
       @@censored_words << singular_for(safe_word)
       @@censored_words << adjective_for(safe_word) if options[:adjective]
       @@censored_words << plural_for(safe_word) if options[:plural]
@@ -49,11 +49,19 @@ class Censor
     end
 
     def adjective_for word
-#      word =~ /^tt$/ ? word << 't?' : ''
-      [
+      adjectival_matchers = [
           {:word => word + 'ing', :regexp => regexp_for(word + 'ing')},
           {:word => word + 'in', :regexp => regexp_for(word + 'in')}
       ]
+
+      if word !~ /(!?t)t$/ && word =~ /t$/
+        adjectival_matchers = adjectival_matchers | [
+            {:word => word + 'ting', :regexp => regexp_for(word + 'ting')},
+            {:word => word + 'tin', :regexp => regexp_for(word + 'tin')}
+        ]
+      end
+
+      adjectival_matchers
     end
 
     def plural_for word
