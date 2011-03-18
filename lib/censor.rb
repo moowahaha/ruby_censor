@@ -1,16 +1,23 @@
+require 'crypt/rot13'
+
 class Censor
   VERSION = '0.0.1'
 
-  def self.add words, options = {:adjective => false, :plural => false}
+  def self.add words, options = {:adjective => false, :plural => false, :past_tense => false, :rot13 => false}
     @@censored_words ||= []
 
     [words].flatten.each do |word|
-      safe_word = Regexp.escape(word.downcase)
+      safe_word = Regexp.escape(
+          options[:rot13] ? Crypt::Rot13.new(word.downcase).to_s : word.downcase
+      )
+
+      @@censored_words << past_tense_for(safe_word)
       @@censored_words << singular_for(safe_word)
       @@censored_words << adjective_for(safe_word) if options[:adjective]
       @@censored_words << plural_for(safe_word) if options[:plural]
     end
 
+    @@censored_words.uniq!
     @@censored_words.flatten!
     @@censored_words.sort! { |a, b| b.first.length <=> a.first.length }
   end
@@ -44,6 +51,13 @@ class Censor
 
   class << self
 
+    def past_tense_for word
+      [
+          {:word => word + 'ed', :regexp => regexp_for(word + 'ed')},
+          {:word => word + 'd', :regexp => regexp_for(word + 'd')}
+      ]
+    end
+
     def singular_for word
       {:word => word, :regexp => regexp_for(word)}
     end
@@ -54,12 +68,7 @@ class Censor
           {:word => word + 'in', :regexp => regexp_for(word + 'in')}
       ]
 
-      if word !~ /(!?t)t$/ && word =~ /t$/
-        adjectival_matchers = adjectival_matchers | [
-            {:word => word + 'ting', :regexp => regexp_for(word + 'ting')},
-            {:word => word + 'tin', :regexp => regexp_for(word + 'tin')}
-        ]
-      end
+      adjectival_matchers |= (adjective_for(word + 't')) if word !~ /(!?t)t$/ && word =~ /t$/
 
       adjectival_matchers
     end

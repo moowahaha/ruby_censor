@@ -1,6 +1,7 @@
 GEM
   remote: http://rubygems.org/
   specs:
+    crypt-rot13 (1.0.4)
     diff-lcs (1.1.2)
     hoe (2.9.1)
       rake (>= 0.8.7)
@@ -18,5 +19,6 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  crypt-rot13
   hoe
   rspec

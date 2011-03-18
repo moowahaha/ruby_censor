@@ -4,6 +4,8 @@ describe Censor do
 
     Censor.add 'leap', :adjective => true, :plural => true
     Censor.add 'sit', :adjective => true
+    Censor.add 'balls', :past_tense => true
+    Censor.add 'uryyb', :rot13 => true
 
   end
 
@@ -21,6 +23,12 @@ describe Censor do
       @censor.replace('leap').should == '****'
     end
 
+    describe "rot13" do
+      it "should replace rot13 encrypted words (for githubs sake)" do
+        @censor.replace('hello').should == '*****'
+      end
+    end
+
     describe "plurals" do
 
       it "should be replaced when appropriate" do
@@ -29,6 +37,14 @@ describe Censor do
 
       it "(possessive) should be replaced when appropriate" do
         @censor.replace("leap's").should == "****'s"
+      end
+
+    end
+
+    describe "past tense" do
+
+      it "should be replaced when appropriate" do
+        @censor.replace("ballsed").should == "*******"
       end
 
     end
@@ -63,6 +79,14 @@ describe Censor do
 
     it "should replace a dodgy word" do
       @censor.replace('leap').should == 'l**p'
+    end
+
+    describe "past tense" do
+
+      it "should be replaced when appropriate" do
+        @censor.replace("ballsed").should == "b*****d"
+      end
+
     end
 
     describe "plurals" do
