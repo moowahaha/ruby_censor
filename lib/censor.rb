@@ -1,4 +1,5 @@
 require File.join(File.dirname(__FILE__), 'censor', 'dictionary')
+require File.join(File.dirname(__FILE__), 'censor', 'tokenizer')
 
 class Censor
   VERSION = '0.0.1'
@@ -8,7 +9,9 @@ class Censor
   end
 
   def clean string
-
+    Censor::Tokenizer.for(string) do |word|
+      @dictionary.has_similar?(word) ? '*' * word.length : word
+    end
   end
 
   private

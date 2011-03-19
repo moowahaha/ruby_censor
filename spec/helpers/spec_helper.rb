@@ -8,6 +8,12 @@ Dir[File.join(File.dirname(__FILE__), %w{.. ** mixins *.rb})].each do |file|
   require file
 end
 
+def with_fixture_dictionary
+  ENV['CENSOR_DICTIONARY'] = fixture_dictionary
+  yield
+  ENV.delete('CENSOR_DICTIONARY')
+end
+
 def fixture_dictionary
   File.join(File.dirname(__FILE__), '..', 'fixtures', 'test_dictionary.yml')
 end

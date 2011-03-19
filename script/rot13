@@ -1,9 +1,0 @@
-#!/usr/bin/env ruby
-
-require 'crypt/rot13'
-
-ARGV[0] || raise("Gimme a string!");
-
-ARGV.each do |arg|
-  puts Crypt::Rot13.new(arg)
-end
