@@ -13,7 +13,7 @@ class Censor
     end
 
     def censored_words
-      @censurable_list.keys
+      @censored_words.keys
     end
 
     def has_similar? word
@@ -22,14 +22,16 @@ class Censor
       dc_word = word.downcase
 
       # exact match (yay)
-      return true if @censurable_list[dc_word]
+      return true if @censored_words[dc_word]
 
       # fp match
-      return false if @false_positives[dc_word]
+      return false if @safe_words[dc_word]
 
       # slower approximate match
-      @censurable_list.values.each do |matcher|
-        return true if matcher.match(dc_word) <= MAXIMUM_WORD_DISTANCE
+      @censored_words.values.each do |matcher|
+        is_censored = matcher.match(dc_word) <= MAXIMUM_WORD_DISTANCE
+        is_censored ? @censored_words[dc_word] : @safe_words
+        return true if is_censored
       end
 
       false
@@ -37,29 +39,29 @@ class Censor
 
     private
 
-    def build_censurable_word_list(contents, sections)
-      @censurable_list = {}
+    def build_censored_word_list(contents, sections)
+      @censored_words = {}
 
       sections.each do |section|
         contents['bad_words'][section.to_s].each do |word|
           next if word.length < MINIMUM_WORD_LENGTH
-          @censurable_list[word.downcase] = Hamming.new(word)
+          @censored_words[word.downcase] = Hamming.new(word)
         end
       end
     end
 
-    def build_false_positive_list(contents)
-      @false_positives = {}
+    def build_safe_word_list(contents)
+      @safe_words = {}
 
       (contents['false_positives'] || []).each do |word|
-        @false_positives[word.downcase] = true
+        @safe_words[word.downcase] = true
       end
     end
 
     def build_word_lists(censurable_file, sections)
       contents = YAML.load_file(censurable_file)
-      build_censurable_word_list(contents, sections)
-      build_false_positive_list(contents)
+      build_censored_word_list(contents, sections)
+      build_safe_word_list(contents)
     end
 
   end
