@@ -1,6 +1,3 @@
-require 'fileutils'
-require 'tmpdir'
-
 describe Censor::Dictionary do
 
   describe "sections" do
@@ -9,6 +6,10 @@ describe Censor::Dictionary do
       dictionary = Censor::Dictionary.new(fixture_dictionary, [:expletives])
       dictionary.has_similar?('moron').should be_false
       dictionary.has_similar?('hamster').should be_true
+    end
+
+    it "should provide a list of the words we're censoring" do
+      Censor::Dictionary.new(fixture_dictionary, [:expletives]).censored_words.should include('doodle')
     end
 
   end
@@ -41,26 +42,6 @@ describe Censor::Dictionary do
 
     it "should not match 2 letter words" do
       @dictionary.has_similar?('is').should be_false
-    end
-
-  end
-
-  describe "training" do
-
-    it "should ..." do
-      tmp_dictionary = File.join(Dir.tmpdir, File.basename(fixture_dictionary))
-      FileUtils.copy(fixture_dictionary, tmp_dictionary)
-
-      Censor::Dictionary.new(tmp_dictionary, [:racism]).has_similar?('mormon').should be_true
-
-      Censor::Dictionary.rebuild(
-          :safe_word_files => safe_word_files,
-          :censurable_dictionary_file => tmp_dictionary
-      )
-
-      Censor::Dictionary.new(tmp_dictionary, [:racism]).has_similar?('mormon').should be_false
-
-      FileUtils.rm(tmp_dictionary)
     end
 
   end
