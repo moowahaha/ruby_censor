@@ -90,7 +90,7 @@ class Censor
     def build_false_positive_list(contents)
       @false_positives = {}
 
-      contents['false_positives'].each do |word|
+      (contents['false_positives'] || []).each do |word|
         @false_positives[word.downcase] = true
       end
     end
