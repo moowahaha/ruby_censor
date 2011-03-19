@@ -1,0 +1,11 @@
+false_positives:
+  - doddle
+
+bad_words:
+  expletives:
+    - doodle
+    - hamster
+
+  racism:
+    - moron
+    - is

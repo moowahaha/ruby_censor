@@ -14,7 +14,7 @@ $hoe = Hoe.spec 'ruby_censor' do
   self.developer 'FIXME full name', 'FIXME email'
   self.post_install_message = 'PostInstall.txt' # TODO remove if post-install message not required
   self.rubyforge_name       = self.name # TODO this is default value
-  self.extra_deps         = [['crypt-rot13','>= 1']]
+  self.extra_deps         = [['amatch','>= 0.2.5'], ['yaml','>= 0']]
 
 end
 

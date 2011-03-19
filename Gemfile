@@ -1,7 +1,7 @@
 # A sample Gemfile
 source "http://rubygems.org"
 
-gem "crypt-rot13"
+gem "amatch"
 
 group :test do
   gem "rspec"

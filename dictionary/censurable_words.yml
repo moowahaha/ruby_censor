@@ -1,0 +1,10 @@
+false_positives:
+
+bad_words:
+  expletives:
+    - fuck
+    - shit
+    - cunt
+
+  racism:
+    - nigger
