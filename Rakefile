@@ -21,6 +21,10 @@ end
 #require 'newgem/tasks'
 Dir['tasks/**/*.rake'].each { |t| load t }
 
+Dir[File.join(File.dirname(__FILE__), %w{lib ** *.rb})].each do |file|
+  require file
+end
+
 # TODO - want other tests/tasks run by default? Add them to the list
 # remove_task :default
 # task :default => [:spec, :features]

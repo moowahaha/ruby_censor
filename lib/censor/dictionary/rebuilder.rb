@@ -34,6 +34,7 @@ class Censor
             false_positives << word if dictionary.has_similar?(word)
           end
 
+          contents['false_positives'] ||= []
           contents['false_positives'] |= false_positives
           contents['false_positives'].sort!.uniq!
         end

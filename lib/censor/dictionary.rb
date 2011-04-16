@@ -5,7 +5,7 @@ class Censor
   class Dictionary
     include Amatch
 
-    MAXIMUM_WORD_DISTANCE = 4
+    MAXIMUM_WORD_DISTANCE = 2
     MINIMUM_WORD_LENGTH = 3
 
     def initialize censurable_file, sections
