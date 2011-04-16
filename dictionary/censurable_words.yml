@@ -5,6 +5,8 @@ bad_words:
     - fuck
     - shit
     - cunt
+    - motherfucker
+    - dumbshit
 
   racism:
     - nigger

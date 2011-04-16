@@ -1,0 +1,3 @@
+describe Censor do
+
+end
