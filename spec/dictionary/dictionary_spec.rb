@@ -44,6 +44,10 @@ describe Censor::Dictionary do
       @dictionary.has_similar?('is').should be_false
     end
 
+    it "should not match when the first character is different" do
+      @dictionary.has_similar?('noron').should be_false
+    end
+
   end
 
 end

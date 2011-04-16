@@ -28,7 +28,8 @@ class Censor
       return false if @safe_words[dc_word]
 
       # slower approximate match
-      @censored_words.values.each do |matcher|
+      @censored_words.each do |word, matcher|
+        next false if word[0] != dc_word[0]
         is_censored = matcher.match(dc_word) <= MAXIMUM_WORD_DISTANCE
         is_censored ? @censored_words[dc_word] : @safe_words
         return true if is_censored
