@@ -21,9 +21,7 @@ describe Censor do
   end
 
   it "should censor expletives" do
-    pending do
-      Censor.new(:censored_words => [:expletives]).clean('fuck this SHIT!').should == '**** this ****!'
-    end
+    Censor.new(:censored_words => [:expletives]).clean('fuck this SHIT!').should == '**** this ****!'
   end
 
 end

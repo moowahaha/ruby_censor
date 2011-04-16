@@ -1,2 +1,2 @@
-mormon
+MORMON
 hamstr
