@@ -2,14 +2,21 @@ describe Censor::Dictionary do
 
   describe "sections" do
 
+    before do
+      @dictionary = Censor::Dictionary.new(fixture_dictionary, [:expletives])
+    end
+
     it "should only be included when specified" do
-      dictionary = Censor::Dictionary.new(fixture_dictionary, [:expletives])
-      dictionary.has_similar?('moron').should be_false
-      dictionary.has_similar?('hamster').should be_true
+      @dictionary.has_similar?('moron').should be_false
+      @dictionary.has_similar?('hamster').should be_true
     end
 
     it "should provide a list of the words we're censoring" do
-      Censor::Dictionary.new(fixture_dictionary, [:expletives]).censored_words.should include('doodle')
+      @dictionary.censored_words['doodle'].should be_true
+    end
+
+    it "should provide a list of the words we consider safe" do
+      @dictionary.safe_words['doddle'].should be_true
     end
 
   end

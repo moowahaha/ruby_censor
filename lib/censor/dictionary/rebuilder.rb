@@ -31,8 +31,8 @@ class Censor
           safe_words.uniq.each do |word|
             word.downcase!
             next if safe_words.length < MINIMUM_WORD_LENGTH
-            next if dictionary.censored_words.include?(word)
-            false_positives << word if dictionary.has_similar?(word)
+            next if dictionary.censored_words[word]
+            false_positives << word if dictionary.safe_words[word] || dictionary.has_similar?(word)
           end
 
           contents['false_positives'] = false_positives

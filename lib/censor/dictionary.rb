@@ -5,15 +5,13 @@ class Censor
   class Dictionary
     include Amatch
 
+    attr_reader :censored_words, :safe_words
+
     MAXIMUM_WORD_DISTANCE = 3
     MINIMUM_WORD_LENGTH = 3
 
     def initialize censurable_file, sections
       build_word_lists(censurable_file, sections)
-    end
-
-    def censored_words
-      @censored_words.keys
     end
 
     def has_similar? word

@@ -16,4 +16,51 @@ I'm gonna wreck this ******'s ride
 
     Censor.new(:censored_words => [:expletives]).clean(dirty).should == clean
   end
+
+  it "should clean up Mr Parker form Way of the Gun" do
+    Censor.new(
+        :censored_words => [:expletives],
+        :hint => true
+    ).clean(
+        "Shut that cunt's mouth or I'll come over there and fuckstart her head"
+    ).should == "Shut that c**t's mouth or I'll come over there and f*******t her head"
+  end
+
+  it "should clean up Richard Prior" do
+    Censor.new(
+        :censored_words => [:expletives, :genitalia, :sexist],
+        :hint => true
+    ).clean(
+        "Bitch was so fine I'd suck her daddy's dick."
+    ).should == "B***h was so fine I'd suck her daddy's d**k."
+  end
+
+  it "should stop Joey LaMotta from Raging Bull saying 'dick'" do
+    Censor.new(
+        :censored_words => [:genitalia]
+    ).clean(
+      "Your mother sucks big fuckin' elephant dicks, you got that?"
+    ).should == "Your mother sucks big fuckin' elephant *****, you got that?"
+  end
+
+  it "should censor Niggaz 4 Life" do
+    dirty = %q{
+      Why do I call myself a nigger, you ask me?
+      I guess it's the way shit has to be
+      Back when I was young gettin a job was murder
+      Fuck flippin burgers
+    }
+
+    clean = %q{
+      Why do I call myself a n****r, you ask me?
+      I guess it's the way s**t has to be
+      Back when I was young gettin a job was murder
+      F**k flippin burgers
+    }
+
+    Censor.new(
+        :censored_words => [:expletives, :racism],
+        :hint => true
+    ).clean(dirty).should == clean
+  end
 end
