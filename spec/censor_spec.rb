@@ -24,4 +24,11 @@ describe Censor do
     Censor.new(:censored_words => [:expletives]).clean('fuck this SHIT!').should == '**** this ****!'
   end
 
+  it "should give a hint to the rude word" do
+    Censor.new(
+        :censored_words => [:expletives],
+        :hint => true
+    ).clean("fuck this SHIT's me!").should == "f**k this S**T's me!"
+  end
+
 end
