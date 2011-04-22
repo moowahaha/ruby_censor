@@ -31,4 +31,11 @@ describe Censor do
     ).clean("fuck this SHIT's me!").should == "f**k this S**T's me!"
   end
 
+  it "should list available dictionaries" do
+    ENV['CENSOR_DICTIONARY'] = 'bob'
+    Censor::Dictionary.should_receive(:available).with('bob').and_return([:moo])
+    Censor.available_dictionaries.should == [:moo]
+    ENV.delete('CENSOR_DICTIONARY')
+  end
+
 end

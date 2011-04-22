@@ -63,4 +63,9 @@ I'm gonna wreck this ******'s ride
         :hint => true
     ).clean(dirty).should == clean
   end
+
+  it "should preserve some perfectly clean passage of text" do
+    text = File.open(File.join(File.dirname(__FILE__), 'fixtures', 'clean.txt')).read
+    Censor.new(:censored_words => Censor.available_dictionaries).clean(text).should == text
+  end
 end

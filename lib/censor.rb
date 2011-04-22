@@ -5,7 +5,7 @@ class Censor
   VERSION = '0.0.1'
 
   def initialize settings
-    @dictionary = Censor::Dictionary.new(dictionary_file, settings[:censored_words])
+    @dictionary = Censor::Dictionary.new(self.class.dictionary_file, settings[:censored_words])
     @replacement_method = settings[:hint] ? :hint : :redact
   end
 
@@ -15,9 +15,13 @@ class Censor
     end
   end
 
+  def self.available_dictionaries
+    Censor::Dictionary.available(dictionary_file)
+  end
+
   private
 
-  def dictionary_file
+  def self.dictionary_file
     ENV['CENSOR_DICTIONARY'] ?
         ENV['CENSOR_DICTIONARY'] :
         File.join(File.dirname(__FILE__), %w{.. dictionary censurable_words.yml})

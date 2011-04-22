@@ -21,6 +21,14 @@ describe Censor::Dictionary do
 
   end
 
+  describe "#available" do
+
+    it "should provide a list of available dictionaries" do
+      Censor::Dictionary.available(fixture_dictionary).should == [:expletives, :racism]
+    end
+
+  end
+
   describe "matching" do
 
     before do
@@ -51,8 +59,8 @@ describe Censor::Dictionary do
       @dictionary.has_similar?('is').should be_false
     end
 
-    it "should not match when the first character is different" do
-      @dictionary.has_similar?('noron').should be_false
+    it "should not match when the first 2 characters are different" do
+      @dictionary.has_similar?('nuron').should be_false
     end
 
   end
