@@ -10,21 +10,20 @@ Hoe.plugin :newgem
 
 # Generate all the Rake tasks
 # Run 'rake -T' to see list of generated tasks (from gem root directory)
-$hoe = Hoe.spec 'ruby_censor' do
-  self.developer 'FIXME full name', 'FIXME email'
-  self.post_install_message = 'PostInstall.txt' # TODO remove if post-install message not required
-  self.rubyforge_name       = self.name # TODO this is default value
-  self.extra_deps         = [['amatch','>= 0.2.5'], ['yaml','>= 0']]
+$hoe = Hoe.spec 'censor' do
+  self.developer 'Stephen Hardisty', 'moowahaha@hotmail.com'
 
+  self.rubyforge_name = self.name
+
+  self.extra_deps = [
+      ['amatch','>= 0.2.5'],
+      ['yaml','>= 0'],
+      ['trollop', '>= 1.16.2']
+  ]
 end
 
-#require 'newgem/tasks'
 Dir['tasks/**/*.rake'].each { |t| load t }
 
 Dir[File.join(File.dirname(__FILE__), %w{lib ** *.rb})].each do |file|
   require file
 end
-
-# TODO - want other tests/tasks run by default? Add them to the list
-# remove_task :default
-# task :default => [:spec, :features]

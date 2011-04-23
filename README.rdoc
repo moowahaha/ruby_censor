@@ -1,32 +1,44 @@
-= ruby_censor
+= censor
 
-* http://github.com/#{github_username}/#{project_name}
+* https://github.com/moowahaha/ruby_censor
 
 == DESCRIPTION:
 
-FIX (describe your package)
+Removes undesirable words from passages of text.
 
 == FEATURES/PROBLEMS:
 
-* FIX (list of features or problems)
+* Currently censors any of the following: expletives, racism, genitalia (slang) & sexism.
+* Includes command line script "rcensor" for experimenting.
+* Uses some smarts around matching words - this increases coverage and reduces the chance of obfuscation but
+might mean some false positives.
+
 
 == SYNOPSIS:
 
-  FIX (code sample of usage)
+   censor = Censor.new(
+       :censored_words => [:expletives, :racism, :genitalia, :sexism],
+       :hint => true
+   )
+
+   censor.clean(some_rude_text) #=> clean text!
+
+   Censor.available_dictionaries #=> [:expletives, :racism, :genitalia, ... etc]
 
 == REQUIREMENTS:
 
-* FIX (list of requirements)
+* amatch
+* trollop
 
 == INSTALL:
 
-* FIX (sudo gem install, anything else)
+gem install censor
 
 == LICENSE:
 
 (The MIT License)
 
-Copyright (c) 2011 FIXME full name
+Copyright (c) 2011 Stephen Hardisty
 
 Permission is hereby granted, free of charge, to any person obtaining
 a copy of this software and associated documentation files (the

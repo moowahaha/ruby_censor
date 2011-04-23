@@ -28,7 +28,7 @@ I'm gonna wreck this ******'s ride
 
   it "should clean up Richard Prior" do
     Censor.new(
-        :censored_words => [:expletives, :genitalia, :sexist],
+        :censored_words => [:expletives, :genitalia, :sexism],
         :hint => true
     ).clean(
         "Bitch was so fine I'd suck her daddy's dick."

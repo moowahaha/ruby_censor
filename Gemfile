@@ -2,6 +2,7 @@
 source "http://rubygems.org"
 
 gem "amatch"
+gem "trollop"
 
 group :test do
   gem "rspec"
