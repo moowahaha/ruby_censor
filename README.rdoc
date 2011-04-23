@@ -10,8 +10,7 @@ Removes undesirable words from passages of text.
 
 * Currently censors any of the following: expletives, racism, genitalia (slang) & sexism.
 * Includes command line script "rcensor" for experimenting.
-* Uses some smarts around matching words - this increases coverage and reduces the chance of obfuscation but
-might mean some false positives.
+* Uses some smarts around matching words - this increases coverage and reduces the chance of obfuscation but might mean some false positives.
 
 
 == SYNOPSIS:
