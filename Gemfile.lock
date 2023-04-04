@@ -3,9 +3,9 @@ GEM
   specs:
     amatch (0.2.5)
     diff-lcs (1.1.2)
-    hoe (2.9.1)
-      rake (>= 0.8.7)
-    rake (0.8.7)
+    hoe (4.0.2)
+      rake (>= 0.8, < 15.0)
+    rake (13.0.6)
     rspec (2.5.0)
       rspec-core (~> 2.5.0)
       rspec-expectations (~> 2.5.0)
@@ -24,3 +24,6 @@ DEPENDENCIES
   hoe
   rspec
   trollop
+
+BUNDLED WITH
+   2.1.4
