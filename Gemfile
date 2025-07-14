@@ -9,5 +9,5 @@ group :test do
 end
 
 group :development do
-  gem "hoe"
+  gem "hoe", ">= 2.9.2"
 end
